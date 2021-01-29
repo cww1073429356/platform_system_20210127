@@ -1,0 +1,28 @@
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+#spring.mail.username=24736743@qq.comspring.mail.password=你的qq授权码spring.mail.host=smtp.qq.com# qq需要配置sslspring.mail.properties.mail.smtp.ssl.enable=true
+
+spring:
+  thymeleaf:
+    cache: false
+  profiles:
+    active: dev #配置环境
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://47.111.228.31:3306/platform_system?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+mybatis:
+  type-aliases-package: com.cc.entity
+  mapper-locations: classpath:mapper/*.xml
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    logic-delete-value: 1
+    logic-not-delete-value: 0
+  mapper-locations: classpath:mapper/*.xml

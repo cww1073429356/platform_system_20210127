@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cc.mapper.MenuMapper" >
+    <resultMap id="comm" type="com.cc.entity.Menu">
+        <id column="ID" property="id"></id>
+        <result property="name" column="NAME"></result>
+        <result property="parentId" column="PARENT_ID"></result>
+        <result property="url" column="URL"></result>
+        <result property="icon" column="ICON"></result>
+        <result property="perms" column="PERMS"></result>
+        <result property="type" column="TYPE"></result>
+        <result property="sort" column="SORT"></result>
+        <collection property="children" ofType="com.cc.entity.Menu">
+            <id column="ID1" property="id"></id>
+            <result property="name" column="NAME1"></result>
+            <result property="parentId" column="PARENT_ID1"></result>
+            <result property="url" column="URL1"></result>
+            <result property="icon" column="ICON1"></result>
+            <result property="perms" column="PERMS1"></result>
+            <result property="type" column="TYPE1"></result>
+            <result property="sort" column="SORT1"></result>
+        </collection>
+    </resultMap>
+    <select id="getChildrenMenuList" resultType="com.cc.entity.Menu"  resultMap="comm">
+        select m.ID,m.NAME,m.PARENT_ID,m.URL,m.ICON,m.PERMS,m.TYPE,m.SORT,
+                c.ID as ID1,c.NAME as NAME1,c.PARENT_ID as PARENT_ID1,c.URL as URL1,c.ICON as ICON1,c.PERMS as PERMS1,c.TYPE as TYPE1,c.SORT as SORT1
+        from menu as m
+        join menu as c on m.ID=c.PARENT_ID
+        where  ISNULL(m.PARENT_ID)
+    </select>
+</mapper>
